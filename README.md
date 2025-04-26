@@ -8,7 +8,7 @@
 - HACER PARTE BACKEND
 - HACER PARTE BACKEND XD
 
-       ******** OPCIONAL ********
+  # ******** OPCIONAL ********
 - Crear Redes sociales de la cafeteria
--  
+  
 (eso es todo de momento)
