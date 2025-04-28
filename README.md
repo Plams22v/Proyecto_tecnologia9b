@@ -1,4 +1,4 @@
-# Proyecto_tecnologia9b :v
+# Proyecto_tecnologia9b 
 
 # COSAS PARA HACER:
 - LA PARTE FRONT END DE LA PAGINA
