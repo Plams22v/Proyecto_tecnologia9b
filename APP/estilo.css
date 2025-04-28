@@ -1,4 +1,8 @@
 /*. decoración */
+ul,li{
+    text-decoration :none;
+
+}
 body {
     font-family: 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif';
     margin: 0;
@@ -69,7 +73,7 @@ input,textarea{
 }
 
 button{
-    background-color: #6e8efb;
+    background-color: hsl(0, 0%, 100%)0%, 100%;
     color: white;
     border: none;
     padding: 0.5rem 1rem;
