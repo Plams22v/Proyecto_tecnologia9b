@@ -1,58 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página principal</title>
-    <link rel="stylesheet" href="estilo.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Página principal</title>
+  <link rel="stylesheet" href="estilo.css" />
+  <link rel="icon" href="logo.png">
 </head>
 <body>
 
-  <!-- direccion para volver arriba (no mover si no el btn no funcionará) -->
+  <!-- Volver arriba -->
   <div id="ar"></div> 
+
+  <!-- Encabezado -->
   <header>
+    <a href="index.html" class="logo" style="float: left;">
+      <img src="logo.png" alt="coffe" style="text-align: left;" />
+      <h2 class="nombre"></h2>
+    </a>
 
-   <!-- imagen del logo junto a texto --> 
-        <a href="#" class="logo">
-   <img src="" alt="">
-   <h2 class="nombre"></h2>
-        </a>
-
-        <!-- Enlaces -->
-        <nav>
-  <a href="index.html" >INICIO</a>
-  <a href="index.html" >SOBRE NOSOTROS</a>
-  <a href="index.html" >PRODUCTOS</a>
-  <a href="index.html" >CONTACTANOS</a>  
-      </nav>
+    <!-- Enlaces -->
+    <nav>
+      <a href="index.html">INICIO</a>
+      <a href="sobrenosotros.html">SOBRE NOSOTROS</a>
+      <a href="productos.html">PRODUCTOS</a>
+      <a href="contacto.html">CONTACTANOS</a>  
+    </nav>
   </header>
 
-  <!-- carrusel de imagenes -->
+  <!-- Carrusel -->
   <main>
-    <section>
-      <img src="" alt="" class="activa">
-      <img src="" alt="">
-      <img src="" alt="">
-    </section>
+    <div class="carrusel">
+      <div class="slides" id="slides" >
+        <img src="cafe.jpg" alt="cafe1" class="slide">
+        <img src="cafe2.jpg" alt="cafe2" class="slide">
+        <img src="cafe3.jpg" alt="cafe3" class="slide">
+      </div>
+  
+      <button class="btn prev" onclick="anterior()">&#10094;</button>
+      <button class="btn next" onclick="siguiente()">&#10095;</button>
+    </div>
 
-<!-- cajas de imagenes(productos y txt) -->
-    <section>
-
+    <!-- Productos -->
+    
+    <section class="cont-productos">
+      <section class="box1">
+      
+          <img src="Images/p1.jpeg" alt="producto 1">
+      
+      </section>
+      <section class="box2">
+      <p> hola</p>
+        <img src="Images/p1.jpeg" alt="producto 2">
+        
     </section>
-   
-    <!-- Botón para volver arriba -->
+  <section class="box3">
+    <img src="Images/p1.jpeg" alt="producto 3">
+    <p>hola</p>
+</section>
+    </section>    
+    <!-- Botón volver arriba -->
     <a href="#ar">
-<button class="btnsubir"><img src="https://images.icon-icons.com/1339/PNG/512/uparrow_87464.png" alt="at" style="width: 50px; height: 50px;"></button>
-</a>
-<!--***********-->
+      <button class="btnsubir">
+        <img src="https://images.icon-icons.com/1339/PNG/512/uparrow_87464.png" alt="subir" style="width: 50px; height: 50px;">
+      </button>
+    </a>
+  </main>
 
-</main>
+  <br>
+  <!-- Pie de página -->
+  <footer>
+    <p style="display: flex; align-self:flex-start; opacity: 70%;">&copy;2025 Todos los derechos reservados a Café Royal.</p>
+  </footer>
 
-<!--Copyright -->
-        <footer>
-        <p>&copy;2025 Todos los derechos reservados a.</p>
-       </footer>
-
-<script src="eventos.js"></script>    
+  <script src="eventos.js"></script>
 </body>
 </html>
