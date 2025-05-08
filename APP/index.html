@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Página principal</title>
   <link rel="stylesheet" href="estilo.css" />
-  <link rel="icon" href="logo.png">
+  <link rel="icon" href="Images/logo.png">
 </head>
 <body>
 
@@ -15,7 +15,7 @@
   <!-- Encabezado -->
   <header>
     <a href="index.html" class="logo" style="float: left;">
-      <img src="logo.png" alt="coffe" style="text-align: left;" />
+      <img src="Images/logo.png" alt="coffe" style="text-align: left;" />
       <h2 class="nombre"></h2>
     </a>
 
@@ -25,6 +25,9 @@
       <a href="sobrenosotros.html">SOBRE NOSOTROS</a>
       <a href="productos.html">PRODUCTOS</a>
       <a href="contacto.html">CONTACTANOS</a>  
+      <a href="carrito.php" id="carrito-icono">
+      <img src="https://cdn-icons-png.flaticon.com/512/60/60992.png" alt="Carrito" class="carrito-nav" style=" width:60px; height: 60px; margin-left: 10px;">
+      </a>
     </nav>
   </header>
 
@@ -32,9 +35,9 @@
   <main>
     <div class="carrusel">
       <div class="slides" id="slides" >
-        <img src="cafe.jpg" alt="cafe1" class="slide">
-        <img src="cafe2.jpg" alt="cafe2" class="slide">
-        <img src="cafe3.jpg" alt="cafe3" class="slide">
+        <img src="Images/cafe.jpg" alt="cafe1" class="slide">
+        <img src="Images/cafe2.jpg" alt="cafe2" class="slide">
+        <img src="Images/cafe3.jpg" alt="cafe3" class="slide">
       </div>
   
       <button class="btn prev" onclick="anterior()">&#10094;</button>
@@ -44,33 +47,58 @@
     <!-- Productos -->
     
     <section class="cont-productos">
-      <section class="box1">
       
-          <img src="Images/p1.jpeg" alt="producto 1">
+      <a href="productos.html" class="box1">
+      <section >
       
+          <img src="Images/producto1.png" alt="producto 1">
+          <br>
+          <p> CAFÉ Y OTRAS BEBIDAS </p>
       </section>
-      <section class="box2">
-      <p> hola</p>
-        <img src="Images/p1.jpeg" alt="producto 2">
-        
+    </a>
+
+      <a href="productos.html" class="box2">
+      <section >
+
+        <img src="Images/producto2.png" alt="producto 2">
+        <br>
+        <p> ACOMPAÑANTES </p>
     </section>
-  <section class="box3">
-    <img src="Images/p1.jpeg" alt="producto 3">
-    <p>hola</p>
+  </a>
+
+    <a href="productos.html" class="box3">
+  <section >
+    <img src="Images/producto3.png" alt="producto 3">
+    <br>
+    <p> PASTELERÍA  </p>
 </section>
-    </section>    
+</a>
+    </section>
+
     <!-- Botón volver arriba -->
     <a href="#ar">
       <button class="btnsubir">
         <img src="https://images.icon-icons.com/1339/PNG/512/uparrow_87464.png" alt="subir" style="width: 50px; height: 50px;">
       </button>
     </a>
+    
+    <br>
+    <br>
+    
+    <!-- Imagen Con texto -->
+
+    <section class="promo-pasteleria">
+      <section class="promo-contenido">
+        <h2>Conoce nuestra pastelería,<br>el complemento perfecto para tu bebida favorita.</h2>
+        <button><a href="productos.html">DATE UN GUSTO </a></button>
+      </section>
+    </section>
   </main>
 
   <br>
   <!-- Pie de página -->
   <footer>
-    <p style="display: flex; align-self:flex-start; opacity: 70%;">&copy;2025 Todos los derechos reservados a Café Royal.</p>
+    <p style="display: flex; align-self:flex-start; opacity: 70%;">&copy;2025 Todos los derechos reservados a CAFE ROYALE.</p>
   </footer>
 
   <script src="eventos.js"></script>

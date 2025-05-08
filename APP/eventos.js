@@ -1,20 +1,4 @@
 //hola :v
-const boton = document.getElementById('btnsubir');
-
-  window.addEventListener('scroll', function() {
-    if (window.scrollY > 10) { // cuando baja 300px aparece
-      boton.style.display = 'block';
-    } else {
-      boton.style.display = 'none';
-    }
-  });
-
-  function subirA() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  }
 
   let index = 0;
   const slides = document.querySelectorAll('.slide');
@@ -38,10 +22,44 @@ const boton = document.getElementById('btnsubir');
   // Automático cada 5s
   setInterval(() => {
     siguiente();
-  }, 5000);
+  }, 8000);
 
   window.addEventListener('resize', () => {
     mostrarSlide(index);
   });
   
+  window.onload = function () {
+    const contenedor = document.getElementById("carrito-contenido");
+    const totalContenedor = document.getElementById("total-carrito");
+    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    if (carrito.length === 0) {
+      contenedor.innerHTML = "<p class='carrito-vacio'>Tu carrito está vacío.</p>";
+      totalContenedor.textContent = "";
+      return;
+    }
+
+    let total = 0;
+    contenedor.innerHTML = carrito.map(p => {
+      total += parseFloat(p.precio);
+      return `
+        <div class="carrito-item">
+          <p>${p.nombre}</p>
+          <p>$${parseFloat(p.precio).toFixed(2)}</p>
+        </div>
+      `;
+    }).join("");
+
+    totalContenedor.textContent = "Total: $" + total.toFixed(2);
+  }
+  function agregarAlCarrito(nombre, precio) {
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    carrito.push({ nombre: nombre, precio: precio });
+    localStorage.setItem("carrito", JSON.stringify(carrito));
   
+    alert(`${nombre} fue agregado al carrito.`);
+  }
+  window.onload = function () {
+    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    // Mostrar productos...
+  }
