@@ -1,21 +1,31 @@
 <?php
 include 'conexion.php';
 
+$usuario_id = 123; // Simulado. En producción usar $_SESSION['usuario_id']
 $producto_id = $_POST['producto_id'];
-$usuario_id = $_POST['usuario_id'];
+$cantidad = $_POST['cantidad'];
 
-// Verificar si ya existe el producto en el carrito del usuario
-$sql = "SELECT * FROM carrito WHERE producto_id = $producto_id AND id_usuario = $usuario_id";
-$result = mysqli_query($conn, $sql);
+// Verificar si ya está en el carrito
+$sql_check = "SELECT * FROM carrito WHERE id_usuario = $usuario_id AND producto_id = $producto_id";
+$result = mysqli_query($conn, $sql_check);
 
 if (mysqli_num_rows($result) > 0) {
-    // Ya está en el carrito, solo aumentar la cantidad
-    $sql = "UPDATE carrito SET cantidad = cantidad + 1 WHERE producto_id = $producto_id AND id_usuario = $usuario_id";
+    // Actualizar cantidad
+    $sql_update = "UPDATE carrito SET cantidad = cantidad + $cantidad WHERE id_usuario = $usuario_id AND producto_id = $producto_id";
+    mysqli_query($conn, $sql_update);
 } else {
-    // Agregar nuevo
-    $sql = "INSERT INTO carrito (id_usuario, producto_id, cantidad) VALUES ($usuario_id, $producto_id, 1)";
+    // Insertar nuevo
+    $sql_insert = "INSERT INTO carrito (id_usuario, producto_id, cantidad) VALUES ($usuario_id, $producto_id, $cantidad)";
+    mysqli_query($conn, $sql_insert);
 }
 
-mysqli_query($conn, $sql);
-header("Location: carrito.html"); // Redirige después de agregar
+// Redirigir automáticamente al carrito
+$redirigir = $_POST['redirigir'] ?? 'carrito';
+
+if ($redirigir === 'productos') {
+    header("Location: productos.php");
+} else {
+    header("Location: carrito.php");
+}
+exit;
 ?>

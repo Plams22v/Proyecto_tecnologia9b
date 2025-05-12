@@ -115,8 +115,8 @@
   .carrusel {
     
     position: relative;
-    width: 1257px;
-    max-width: 1270px;
+    width: 1365px;
+    max-width: 1370px;
     height: 65vh;
     overflow: hidden;
     margin: 0;
@@ -175,6 +175,7 @@
     text-align: center; /* Centramos el contenido */
     align-content: center;
     font-weight: bold;
+    
     font-size: medium;
     
 }
@@ -213,7 +214,7 @@ font-weight: Bold;
  color: black; 
 }
 .promo-pasteleria {
-  background-image: url('Images/cafe.jpg'); /*imagen de fondo */
+  background-image: url('cafe.jpg'); /*imagen de fondo */
   background-size: cover;
   background-position: center;
   padding: 80px 40px;
@@ -365,3 +366,24 @@ font-weight: Bold;
     padding: 20px;
   background-color: rgba(153, 111, 64, 0.534);
   }
+  .input-cantidad {
+    width: 60px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    text-align: center;
+    transition: border-color 0.3s ease;
+}
+
+.input-cantidad:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.cantidad-label {
+    margin-right: 8px;
+    font-weight: bold;
+    font-size: 14px;
+}
+  

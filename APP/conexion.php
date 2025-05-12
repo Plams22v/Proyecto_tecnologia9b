@@ -1,14 +1,12 @@
 <?php
-$servername = "localhost";
-$database = "cafe";
-$username = "root";
-$password = "";
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $database);
-// Check connection
+$host = "localhost";
+$user = "root"; 
+$password = ""; 
+$dbname = "cafe";
+
+$conn = mysqli_connect($host, $user, $password, $dbname);
+
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
-echo "Connected successfully";
-mysqli_close($conn);
 ?>

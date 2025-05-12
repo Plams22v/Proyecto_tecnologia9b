@@ -63,3 +63,24 @@
     const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
     // Mostrar productos...
   }
+  document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const errorMsg = document.getElementById('error-msg');
+    errorMsg.textContent = ""; // Limpiar mensajes de error
+
+    if (!document.getElementById('terms').checked) {
+        errorMsg.textContent = "Debes aceptar los términos y condiciones.";
+        return;
+    }
+
+    const formData = new FormData(this);
+    const response = await fetch('/enviar-email', {
+        method: 'POST',
+        body: formData
+    });
+
+    const result = await response.text();
+    alert(result);
+    this.reset();
+});
