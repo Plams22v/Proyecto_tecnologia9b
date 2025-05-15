@@ -1,7 +1,7 @@
 # Proyecto Tecnologia 9B
 
 # COSAS PARA HACER:
-- HACER PARTE BACKEND (0%)
+- HACER PARTE BACKEND (25%)
 - HACER PARTE BACKEND XD (XDDDD)
 
   # ******** OPCIONAL ********
