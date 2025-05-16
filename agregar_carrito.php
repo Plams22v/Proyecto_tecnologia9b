@@ -1,20 +1,27 @@
 <?php
 include 'conexion.php';
 
-// Obtener datos del formulario
-$nombre = $_POST['nombre'];
-$cantidad= $_POST['cantidad'];
-// Usar consultas preparadas para evitar inyección SQL
-$stmt= $conn->prepare("INSERT INTO mensajes (nombre,cantidad ) VALUES (?, ?)");
-$stmt->bind_param("sssi", $nombre, $email, $mensaje, $calificacion);
+// Validar que se recibió la información
+if (isset($_POST['id']) && isset($_POST['cantidad'])) {
+    $id = $_POST['id'];
+    $cantidad = (int)$_POST['cantidad'];
 
-if ($stmt->execute()) {
-    header("Location: contacto.php?mensaje=success");
+    // Consulta preparada
+    $stmt = $conn->prepare("INSERT INTO productos (nombre, cantidad) VALUES (?, ?)");
+    $stmt->bind_param("si", $nombre, $cantidad);
+
+    if ($stmt->execute()) {
+        header("Location: productos.php?mensaje=success");
+    } else {
+        header("Location: productos.php?mensaje=error");
+    }
+
+    $stmt->close();
+    $conn->close();
+    exit;
 } else {
-    header("Location: contacto.php?mensaje=error");
+    // Datos no enviados correctamente
+    header("Location: productos.php?mensaje=error_datos");
+    exit;
 }
-
-$stmt->close();
-$conn->close();
-exit;
 ?>
