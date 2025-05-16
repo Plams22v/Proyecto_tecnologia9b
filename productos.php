@@ -1,6 +1,18 @@
 <?php
 include 'conexion.php';
 
+$sql = "SELECT * FROM productos";
+$resultado = $conn->query($sql);
+
+if (isset($_GET['mensaje'])) {
+    if ($_GET['mensaje'] == 'success') {
+        echo "<p style='color: green;'>✅ Producto agregado correctamente.</p>";
+    } elseif ($_GET['mensaje'] == 'error') {
+        echo "<p style='color: red;'>❌ Error al agregar el producto.</p>";
+    } elseif ($_GET['mensaje'] == 'error_datos') {
+        echo "<p style='color: red;'>❌ Faltan datos en el formulario.</p>";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,7 +83,6 @@ include 'conexion.php';
     aria-label="Cantidad de productos">
   <button type="submit">Agregar al carrito</button>
 </form>
-
 </section>
 <section class="box1">
   
@@ -179,6 +190,17 @@ include 'conexion.php';
 
 
 
+<div class="productos">
+        <?php while ($fila = $resultado->fetch_assoc()) { ?>
+            <div class="producto">
+                <h3><?php echo $fila['nombre']; ?></h3>
+                <p>Precio: $<?php echo number_format($fila['precio'], 2); ?></p>
+                <button onclick="agregarAlCarrito('<?php echo $fila['nombre']; ?>', '<?php echo $fila['precio']; ?>')">
+                    Agregar al carrito
+                </button>
+            </div>
+        <?php } ?>
+    </div>
 
 
 </section>

@@ -3,9 +3,12 @@ include 'conexion.php';
 
 // Obtener datos del formulario
 $nombre = $_POST['nombre'];
-$cantidad= $_POST['cantidad'];
+$email = $_POST['email'];
+$mensaje = $_POST['mensaje'];
+$calificacion = isset($_POST['calificacion']) ? $_POST['calificacion'] : NULL;
+
 // Usar consultas preparadas para evitar inyección SQL
-$stmt= $conn->prepare("INSERT INTO mensajes (nombre,cantidad ) VALUES (?, ?)");
+$stmt = $conn->prepare("INSERT INTO mensajes (nombre, email, mensaje, calificacion) VALUES (?, ?, ?, ?)");
 $stmt->bind_param("sssi", $nombre, $email, $mensaje, $calificacion);
 
 if ($stmt->execute()) {
