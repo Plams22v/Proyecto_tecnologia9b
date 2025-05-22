@@ -1,42 +1,48 @@
 <?php
+require 'conexion.php';
 include 'conexion.php';
-$sql = "SELECT * FROM productos";
-$resultado = $conn->query($sql);
+session_start();
+
+if (!isset($_SESSION['id_usuario'])) {
+  header("Location: login.php");
+  exit;
+}
+
+$usuario_id = $_SESSION['usuario_id'];
+
+$query = "
+    SELECT p.nombre, p.precio, c.cantidad, (p.precio * c.cantidad) AS total
+    FROM carrito c
+    JOIN productos p ON c.producto_id = p.id
+    WHERE c.id_usuario = ?
+";
+
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $usuario_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$total_general = 0;
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Productos</title>
-    <link rel="stylesheet" href="estilo.css">
+<h2>Tu carrito</h2>
+<table>
+    <tr>
+        <th>Producto</th>
+        <th>Precio</th>
+        <th>Cantidad</th>
+        <th>Total</th>
+    </tr>
+    <?php while ($fila = $result->fetch_assoc()) {
+        $total_general += $fila['total'];
+    ?>
+        <tr>
+            <td><?php echo $fila['nombre']; ?></td>
+            <td>$<?php echo $fila['precio']; ?></td>
+            <td><?php echo $fila['cantidad']; ?></td>
+            <td>$<?php echo $fila['total']; ?></td>
+        </tr>
+    <?php } ?>
+</table>
 
-    <script src="eventos.js" defer></script>
-</head>
-<body>
-  <!-- Encabezado -->
-  <header>
-    <a href="index.html" class="logo" style="float: left;">
-      <img src="Logo.png" alt="coffe" style="text-align: left;" />
-      <h2 class="nombre"></h2>
-    </a>
-
-    <!-- Enlaces -->
-    <nav>
-      <a href="index.html">INICIO</a>
-      <a href="sobrenosotros.html">SOBRE NOSOTROS</a>
-      <a href="productos.php">PRODUCTOS</a>
-      <a href="contacto.php">CONTACTANOS</a>  
-      <a href="carrito.php" id="carrito-icono">
-      <img src="https://cdn-icons-png.flaticon.com/512/60/60992.png" alt="Carrito" class="carrito-nav" style=" width:60px; height: 60px; margin-left: 10px;">
-      </a>
-    </nav>
-  </header>
-
-<section class="box1">
-<h2>Lista de Productos</h2>
-</section>
-
-
-</body>
-</html>
+<p><strong>Total a pagar: $<?php echo $total_general; ?></strong></p>

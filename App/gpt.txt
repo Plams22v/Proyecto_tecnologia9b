@@ -1,0 +1,101 @@
+productos.php:
+<?php
+session_start();
+$conexion = new mysqli("localhost", "root", "", "cafe");
+if ($conexion->connect_error) {
+    die("Conexión fallida: " . $conexion->connect_error);
+}
+
+$resultado = $conexion->query("SELECT * FROM productos");
+?>
+
+<!DOCTYPE html>
+<html>
+<head><title>Productos</title></head>
+<body>
+    <h1>Lista de Productos</h1>
+    <ul>
+        <?php while($row = $resultado->fetch_assoc()): ?>
+            <li>
+                <strong><?= $row['nombre'] ?></strong><br>
+                <?= $row['descripcion'] ?><br>
+                Precio: $<?= $row['precio'] ?><br>
+                <form action="agregar_carrito.php" method="post">
+                    <input type="hidden" name="producto_id" value="<?= $row['id'] ?>">
+                    <input type="number" name="cantidad" value="1" min="1" max="<?= $row['stock'] ?>">
+                    <button type="submit">Agregar al carrito</button>
+                </form>
+            </li>
+        <?php endwhile; ?>
+    </ul>
+
+    <a href="carrito.php">Ver carrito</a>
+</body>
+</html>
+
+
+agregar_carrito.php: 
+
+
+
+<?php
+session_start();
+
+if (!isset($_POST['producto_id'], $_POST['cantidad'])) {
+    die("Datos incompletos");
+}
+
+$producto_id = (int)$_POST['producto_id'];
+$cantidad = (int)$_POST['cantidad'];
+
+if (!isset($_SESSION['carrito'])) {
+    $_SESSION['carrito'] = [];
+}
+
+if (isset($_SESSION['carrito'][$producto_id])) {
+    $_SESSION['carrito'][$producto_id] += $cantidad;
+} else {
+    $_SESSION['carrito'][$producto_id] = $cantidad;
+}
+
+header("Location: productos.php");
+exit;
+
+
+
+
+carrito.php:
+
+
+ <?php
+session_start();
+$conexion = new mysqli("localhost", "root", "", "cafe");
+if ($conexion->connect_error) {
+    die("Conexión fallida: " . $conexion->connect_error);
+}
+
+$carrito = $_SESSION['carrito'] ?? [];
+
+echo "<h1>Carrito de compras</h1>";
+
+if (empty($carrito)) {
+    echo "<p>El carrito está vacío.</p>";
+} else {
+    $ids = implode(",", array_keys($carrito));
+    $result = $conexion->query("SELECT * FROM productos WHERE id IN ($ids)");
+
+    $total = 0;
+    while ($producto = $result->fetch_assoc()) {
+        $id = $producto['id'];
+        $cantidad = $carrito[$id];
+        $subtotal = $producto['precio'] * $cantidad;
+        $total += $subtotal;
+
+        echo "<p><strong>{$producto['nombre']}</strong> - Cantidad: $cantidad - Subtotal: $$subtotal</p>";
+    }
+
+    echo "<h3>Total: $$total</h3>";
+}
+
+echo '<a href="productos.php">Seguir comprando</a>';
+?>

@@ -15,7 +15,7 @@ if ($result->num_rows === 1) {
     if (password_verify($contrasena, $usuario['contrasena'])) {
         $_SESSION['id_usuario'] = $usuario['id'];
         $_SESSION['nombre'] = $usuario['nombre'];
-        header("Location: productos.php");
+        header("Location: index.php");
     } else {
         echo "Contraseña incorrecta.";
     }

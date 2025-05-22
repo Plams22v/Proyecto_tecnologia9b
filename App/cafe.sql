@@ -1,168 +1,68 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Servidor: 127.0.0.1
--- Tiempo de generación: 22-05-2025 a las 03:41:51
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
+-- SQLBook: Code
 -- Base de datos: `cafe`
---
 
--- --------------------------------------------------------
+CREATE DATABASE IF NOT EXISTS `cafe` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `cafe`;
 
---
--- Estructura de tabla para la tabla `carrito`
---
-
-CREATE TABLE `carrito` (
-  `id` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  `producto_id` int(11) NOT NULL,
-  `cantidad` int(11) DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `mensajes`
---
-
-CREATE TABLE `mensajes` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `mensaje` text NOT NULL,
-  `fecha` timestamp NOT NULL DEFAULT current_timestamp(),
-  `calificacion` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `mensajes`
---
-
-INSERT INTO `mensajes` (`id`, `nombre`, `email`, `mensaje`, `fecha`, `calificacion`) VALUES
-(1, 'JUAN CAMILO', 'juanca.tabares43@gmail.com', 'HOLA D:', '2025-05-16 03:33:16', NULL),
-(2, 'Juan Camilo', 'juanca.tabares34@gmail.com', 'HOLA', '2025-05-16 03:34:10', NULL),
-(3, 'Juan Camilo', 'juanca.tabares34@gmail.com', 'HOLA', '2025-05-16 03:35:47', NULL),
-(4, 'Juan Camilo', 'juanca.tabares34@gmail.com', 'MUY bien servicio', '2025-05-16 04:25:15', 5),
-(5, 'Juan Camilo', 'juanca.tabares34@gmail.com', 'HOLA :D', '2025-05-22 01:31:49', 5);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `productos`
---
-
-CREATE TABLE `productos` (
-  `precio` decimal(10,2) NOT NULL,
-  `id` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `usuarios`
---
-
+-- Tabla: usuarios
 CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `contrasena` varchar(255) NOT NULL,
-  `correo` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(100) NOT NULL,
+  `contrasena` VARCHAR(255) NOT NULL,
+  `correo` VARCHAR(100) NOT NULL UNIQUE,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `usuarios`
---
+-- Tabla: productos
+CREATE TABLE `productos` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(100) NOT NULL,
+  `descripcion` TEXT,
+  `precio` DECIMAL(10,2) NOT NULL,
+  `stock` INT(11) NOT NULL DEFAULT 0,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `usuarios` (`id`, `nombre`, `contrasena`, `correo`) VALUES
-(1, 'Juan Camilo', '$2y$10$I7dB7BXFIPgFr3bkte17Tu1MGmv46DFhK5olO73PnEWXzHxi0EyHu', 'juanca.tabares34@gmail.com');
+-- Tabla: carrito
+CREATE TABLE `carrito` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` INT(11) NOT NULL,
+  `producto_id` INT(11) NOT NULL,
+  `cantidad` INT(11) NOT NULL DEFAULT 1 CHECK (`cantidad` > 0),
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `id_usuario` (`id_usuario`),
+  KEY `producto_id` (`producto_id`),
+  CONSTRAINT `carrito_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `carrito_ibfk_2` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Índices para tablas volcadas
---
+-- Tabla: mensajes
+CREATE TABLE `mensajes` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(100) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `mensaje` TEXT NOT NULL,
+  `fecha` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `calificacion` INT(11) DEFAULT NULL,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX (`email`),
+  INDEX (`fecha`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Indices de la tabla `carrito`
---
-ALTER TABLE `carrito`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_usuario` (`id_usuario`),
-  ADD KEY `producto_id` (`producto_id`);
+-- Datos de ejemplo
+INSERT INTO `usuarios` (`nombre`, `contrasena`, `correo`) VALUES
+('Juan Camilo', '$2y$10$I7dB7BXFIPgFr3bkte17Tu1MGmv46DFhK5olO73PnEWXzHxi0EyHu', 'juanca.tabares34@gmail.com');
 
---
--- Indices de la tabla `mensajes`
---
-ALTER TABLE `mensajes`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `productos`
---
-ALTER TABLE `productos`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `correo` (`correo`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `carrito`
---
-ALTER TABLE `carrito`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `mensajes`
---
-ALTER TABLE `mensajes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT de la tabla `productos`
---
-ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `carrito`
---
-ALTER TABLE `carrito`
-  ADD CONSTRAINT `carrito_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`),
-  ADD CONSTRAINT `carrito_ibfk_2` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+INSERT INTO `mensajes` (`nombre`, `email`, `mensaje`, `fecha`, `calificacion`) VALUES
+('JUAN CAMILO', 'juanca.tabares43@gmail.com', 'HOLA D:', '2025-05-16 03:33:16', NULL),
+('Juan Camilo', 'juanca.tabares34@gmail.com', 'HOLA', '2025-05-16 03:34:10', NULL),
+('Juan Camilo', 'juanca.tabares34@gmail.com', 'HOLA', '2025-05-16 03:35:47', NULL),
+('Juan Camilo', 'juanca.tabares34@gmail.com', 'MUY bien servicio', '2025-05-16 04:25:15', 5),
+('Juan Camilo', 'juanca.tabares34@gmail.com', 'HOLA :D', '2025-05-22 01:31:49', 5);

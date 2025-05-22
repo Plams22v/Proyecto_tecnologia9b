@@ -116,9 +116,10 @@ $sql = "SELECT nombre, mensaje, fecha, calificacion FROM mensajes ORDER BY fecha
 $resultado = $conexion->query($sql);
 ?>
 
-<section id="reseñas" style="background-color:#f8f8f8; padding:20px; border-radius:10px; margin-top:30px;">
+<br>
+<section id="reseñas" style="background-color:#85694a44; padding:20px; border-radius:10px; margin-top:30px;">
     <h2 style="text-align:center;">Reseñas de nuestros clientes</h2>
-
+<br>
     <?php
     if ($resultado->num_rows > 0) {
         while ($fila = $resultado->fetch_assoc()) {
@@ -127,13 +128,13 @@ $resultado = $conexion->query($sql);
             echo "<small style='color:gray;'>" . date("d/m/Y H:i", strtotime($fila['fecha'])) . "</small><br>";
             echo "<p>" . nl2br(htmlspecialchars($fila['mensaje'])) . "</p>";
             if ($fila['calificacion'] !== null) {
-                echo "<div style='color:gold;'>Calificación: ";
+                echo "<section style='color:gold;'>Calificación: ";
                 for ($i = 0; $i < $fila['calificacion']; $i++) {
                     echo "★";
                 }
-                echo "</div>";
+                echo "</section>";
             }
-            echo "</div>";
+            echo "</section>";
         }
     } else {
         echo "<p style='text-align:center;'>Aún no hay reseñas. ¡Sé el primero en opinar!</p>";

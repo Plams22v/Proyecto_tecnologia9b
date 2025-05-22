@@ -1,48 +1,31 @@
 <?php
 include 'conexion.php';
-session_start();
 
-if (!isset($_SESSION['id_usuario'])) {
-    // Si no hay sesión iniciada, va a la página de inicio de sesión
-    header("Location: login.php?mensaje=Debes iniciar sesión para agregar al carrito.");
-    
-}
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $usuario_id = intval($_POST['usuario_id']);
+    $producto_id = intval($_POST['id']);
+    $cantidad = intval($_POST['cantidad']);
 
-$id_usuario = $_SESSION['id_usuario'];
-$producto_id = $_POST['id'] ?? null;
+    if ($usuario_id > 0 && $producto_id > 0 && $cantidad > 0) {
+        // Verificar si ya existe en el carrito
+        $stmt = $pdo->prepare("SELECT * FROM carrito WHERE id_usuario = ? AND producto_id = ?");
+        $stmt->execute([$usuario_id, $producto_id]);
+        $item = $stmt->fetch();
 
-if (!$producto_id) {
-    die("Error: producto_id no recibido.");
-}
+        if ($item) {
+            // Actualizar cantidad
+            $stmt = $pdo->prepare("UPDATE carrito SET cantidad = cantidad + ? WHERE id = ?");
+            $stmt->execute([$cantidad, $item['id']]);
+        } else {
+            // Insertar nuevo
+            $stmt = $pdo->prepare("INSERT INTO carrito (id_usuario, producto_id, cantidad) VALUES (?, ?, ?)");
+            $stmt->execute([$usuario_id, $producto_id, $cantidad]);
+        }
 
-$cantidad = $_POST['cantidad'] ?? 1;
-
-// Verificar si ya existe ese producto en el carrito
-$sql = "SELECT * FROM carrito WHERE id_usuario = ? AND producto_id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("ii", $id_usuario, $producto_id);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows > 0) {
-    // Si ya existe, actualizar la cantidad
-    $sql = "UPDATE carrito SET cantidad = cantidad + ? WHERE id_usuario = ? AND producto_id = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iii", $cantidad, $id_usuario, $producto_id);
-} else {
-    // Si no existe, insertar nuevo
-    $sql = "INSERT INTO carrito (id_usuario, producto_id, cantidad) VALUES (?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iii", $id_usuario, $producto_id, $cantidad);
-}
-
-
-if ($stmt->execute()) {
-    header("Location: productos.php?mensaje=Producto agregado");
-} else {
-    echo "Error al agregar al carrito: " . $conn->error;
-    header("Location: productos.php?mensaje=Error al agregar al carrito");
-    die();
-    // Puedes redirigir a una página de error o mostrar un mensaje
+        header('Location: carrito.php');
+        exit();
+    } else {
+        echo "Datos inválidos.";
+    }
 }
 ?>

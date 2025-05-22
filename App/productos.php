@@ -77,7 +77,8 @@ if (!isset($_SESSION['id_usuario'])) {
   
 <form action="agregar_carrito.php" method="POST">
   
-<input type="hidden" name="producto_id" value="1">
+<input type="hidden" name="id_producto" value="<?php echo $producto['id']; ?>">
+
 
 <input type="number" id="cantidad" name="cantidad" value="1" min="1" class="input-cantidad" aria-label="Cantidad de productos">
   
@@ -126,7 +127,7 @@ if (!isset($_SESSION['id_usuario'])) {
 <section class="box1">
 <img src="https://perfectdailygrind.com/es/wp-content/uploads/sites/2/2022/04/image5-1.jpg" alt="">   
 <p>Latte sencillo</p>
-  <br>
+  <br>0
 
   <input 
     type="number" 
@@ -346,7 +347,7 @@ if (!isset($_SESSION['id_usuario'])) {
 </section>
 
 <section class="box1">
-<img src="https://www.recetasnestle.com.ve/sites/default/files/styles/recipe_detail_desktop_new/public/srh_recipes/e2928ff551a360cdadb4e5a2528841b7.webp?itok=xG-v6W1S" alt="">   
+<img src="https://www.recetasnestle.com.ve/sites/default/files/styles/recipe_detail_desktop_new/public/srh_recipes/e29w28ff551a360cdadb4e5a2528841b7.webp?itok=xG-v6W1S" alt="">   
 <p>Torta de chocolate</p>
   <br>
 
@@ -364,7 +365,7 @@ if (!isset($_SESSION['id_usuario'])) {
   
 </section>
 <section class="box1">
-<img src="https://www.infobae.com/resizer/v2/3TB63YQTZRHOFJCEJYKOFFKOSY.jpg?auth=8af34bd83cf84dae26274283ff35dd256485b7f81d3c5133add00d72b88ca846&smart=true&width=992&height=558&quality=85" alt=""> 
+<img src="https://www.infobae.com/resizer/v2/3TB63YQTZRHOFJCEJYKOFFKOSY.jpg?auth=8af34bd83cf84dae26274283ff35dd256485b7f81d3c5133add00d72b88ca846&smart=true&width=992w&height=558&quality=85" alt=""> 
 <p>Croissant</p>
   <br>
 
@@ -383,7 +384,8 @@ if (!isset($_SESSION['id_usuario'])) {
 </section>
 
 <section class="box1">
-<img src="https://www.clarin.com/img/2024/01/08/nIj4TQNeA_1256x620__1.jpg" alt="">
+<img src="https://www.infobae.com/resizer/v2/3TB63YQTZRHOFJCEJYKOFFKOSY.jpg?auth=8af34bd83cf84dae26274283ff35dd256485b7f81d3c5133add00d72b88ca846&smart=true&width=992w&height=558&quality=85" alt="">
+
 <p>Palitos de queso</p>
   <br>
 
