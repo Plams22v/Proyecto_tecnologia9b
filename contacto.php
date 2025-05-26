@@ -14,10 +14,11 @@
       <img src="Logo.png" alt="Cafetería Logo" />
     </a>
     <nav>
-      <a href="index.html">INICIO</a>
+      <a href="index.php">INICIO</a>
       <a href="sobrenosotros.html">SOBRE NOSOTROS</a>
       <a href="productos.php">PRODUCTOS</a>
       <a href="contacto.php">CONTACTANOS</a>
+      <a href="logout.php">CERRAR SESION</a>
       <a href="carrito.php" id="carrito-icono">
         <img src="https://cdn-icons-png.flaticon.com/512/60/60992.png" alt="Carrito" class="carrito-nav" style=" width:60px; height: 60px; margin-left: 10px;">
         </a>
@@ -62,7 +63,7 @@
     <input type="email" id="email" name="email" required>
     
     <label for="mensaje">Mensaje:</label>
-    <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+    <textarea id="mensaje" name="mensaje" rows="5" class="login-container" required></textarea>
     <label for="calificacion">Califícanos:</label>
     <div id="calificacion">
         <input type="radio" id="estrella5" name="calificacion" value="5">
