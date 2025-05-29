@@ -12,7 +12,7 @@ if (!isset($_SESSION['id_usuario'])) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Página principal</title>
-  <link rel="stylesheet" href="estilo.css" />
+  <link rel="stylesheet" href="estilo2.css" />
   <link rel="icon" href="Images/Logo.png">
 </head>
 <body>
@@ -25,7 +25,7 @@ if (!isset($_SESSION['id_usuario'])) {
  
     <a href="index.html" class="logo" style="float: left;">
       <img src="Logo.png" alt="coffe" style="text-align: left;" />
-      <h2 class="nombre"></h2>
+     
     </a>
 
     <!-- Enlaces -->
@@ -34,6 +34,7 @@ if (!isset($_SESSION['id_usuario'])) {
       <a href="sobrenosotros.html">SOBRE NOSOTROS</a>
       <a href="productos.php">PRODUCTOS</a>
       <a href="contacto.php">CONTACTANOS</a>  
+      <a href="logout.php">CERRAR SESION</a>
       <a href="carrito.php" id="carrito-icono">
       <img src="https://cdn-icons-png.flaticon.com/512/60/60992.png" alt="Carrito" class="carrito-nav" style=" width:60px; height: 60px; margin-left: 10px;">
       </a>
@@ -59,7 +60,7 @@ if (!isset($_SESSION['id_usuario'])) {
      </center></section>
      
     <section class="cont-productos">
-      <a href="productos.php#bebida" class="box1">
+      <a href="productos.php#bebida" class="box2">
     
           <img src="producto1.png" alt="producto 1">
           <p> CAFÉS Y OTRAS BEBIDAS </p>

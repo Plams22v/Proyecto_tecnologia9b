@@ -27,7 +27,7 @@ if (!isset($_SESSION['id_usuario'])) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Página principal</title>
-  <link rel="stylesheet" href="estilo.css" />
+  <link rel="stylesheet" href="estilo2.css" />
   <link rel="icon" href="Logo.png">
 </head>
 <body>
