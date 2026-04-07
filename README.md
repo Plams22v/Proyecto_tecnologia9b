@@ -1,10 +1,9 @@
 # Proyecto Tecnologia 9B
 
 # COSAS PARA HACER:
-- HACER PARTE BACKEND (25%)
-- HACER PARTE BACKEND XD (XDDDD)
+Hablar con la tutora
 
   # ******** OPCIONAL ********
-- Crear Redes sociales de la cafeteria
+  agarrar la pala
   
 (eso es todo de momento)
